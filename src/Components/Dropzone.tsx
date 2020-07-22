@@ -1,7 +1,32 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { useDropzone } from 'react-dropzone'
 
 export const Dropzone: React.FunctionComponent = () => {
+    const baseStyle: React.CSSProperties = {
+        width: '25vw',
+        textAlign: 'center',
+        padding: '0vh 20vw 0vh 20vw',
+        margin: 'auto',
+        borderWidth: 2,
+        borderRadius: 2,
+        borderColor: '#eeeeee',
+        borderStyle: 'dashed',
+        backgroundColor: '#fafafa',
+        color: '#bdbdbd',
+    };
+    
+    const activeStyle = {
+        borderColor: '#2196f3'
+    };
+    
+    const acceptStyle = {
+        borderColor: '#00e676'
+    };
+    
+    const rejectStyle = {
+        borderColor: '#ff1744'
+    };
+
     const {
         getRootProps,
         getInputProps,
@@ -22,7 +47,7 @@ export const Dropzone: React.FunctionComponent = () => {
         isDragAccept
     ]);
 
-    const post = useMemo(() => {
+    useMemo(() => {
         if (acceptedFiles[0]) {
             const formData = new FormData()
             formData.append('file', acceptedFiles[0])
@@ -46,41 +71,12 @@ export const Dropzone: React.FunctionComponent = () => {
         <div className="container">
             <div {...getRootProps({ style })}>
                 <input {...getInputProps()} />
-                <p>Upload Resume</p>
-                {/* <p>{acceptedFiles.map((file) => {return file.type})}</p> */}
+                <p>{acceptedFiles[0] ? acceptedFiles[0].name : "Upload Resume"}</p>
             </div>
         </div>
     );
 }
 
-const baseStyle: React.CSSProperties = {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    width: '25vw',
-    alignItems: 'center',
-    padding: '20px',
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: '#eeeeee',
-    borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
-    outline: 'none',
-    transition: 'border .24s ease-in-out'
-};
-
-const activeStyle = {
-    borderColor: '#2196f3'
-};
-
-const acceptStyle = {
-    borderColor: '#00e676'
-};
-
-const rejectStyle = {
-    borderColor: '#ff1744'
-};
 
 
 
