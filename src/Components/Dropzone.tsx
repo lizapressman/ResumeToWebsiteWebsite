@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import Input from './Input'
 
 export const Dropzone: React.FunctionComponent = () => {
-    const [parsedResume, setParsedResume] = useState("")
+    const [parsedResume, setParsedResume] = useState<ParsedResume>()
 
     const baseStyle: React.CSSProperties = {
         width: '25vw',
@@ -61,7 +61,7 @@ export const Dropzone: React.FunctionComponent = () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    setParsedResume(JSON.stringify(data))
+                    setParsedResume(data)
 
                     console.log(data)
                     return data;
@@ -78,7 +78,6 @@ export const Dropzone: React.FunctionComponent = () => {
                 <input {...getInputProps()} />
                 <p>{acceptedFiles[0] ? acceptedFiles[0].name : "Upload Resume"}</p>
             </div>
-            <pre>{parsedResume}</pre>
             <Input parsedResume={parsedResume} />
         </div>
     );
