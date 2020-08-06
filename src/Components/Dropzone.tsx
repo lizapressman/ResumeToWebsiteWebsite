@@ -1,7 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import Input from './Input'
 
 export const Dropzone: React.FunctionComponent = () => {
+    const [parsedResume, setParsedResume] = useState("")
+
     const baseStyle: React.CSSProperties = {
         width: '25vw',
         textAlign: 'center',
@@ -14,15 +17,15 @@ export const Dropzone: React.FunctionComponent = () => {
         backgroundColor: '#fafafa',
         color: '#bdbdbd',
     };
-    
+
     const activeStyle = {
         borderColor: '#2196f3'
     };
-    
+
     const acceptStyle = {
         borderColor: '#00e676'
     };
-    
+
     const rejectStyle = {
         borderColor: '#ff1744'
     };
@@ -35,7 +38,7 @@ export const Dropzone: React.FunctionComponent = () => {
         isDragReject,
         acceptedFiles
     } = useDropzone({ accept: '.pdf' });
-    
+
     const style = useMemo(() => ({
         ...baseStyle,
         ...(isDragActive ? activeStyle : {}),
@@ -55,28 +58,28 @@ export const Dropzone: React.FunctionComponent = () => {
             fetch('http://127.0.0.1:5000/upload', {
                 method: 'POST',
                 body: formData
-              })
-              .then(response => response.json())
-              .then(data => {
-                console.log(data)
-                return data;
-              })
-              .catch(error => {
-                console.error(error)
-              })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setParsedResume(JSON.stringify(data))
+
+                    console.log(data)
+                    return data;
+                })
+                .catch(error => {
+                    console.error(error)
+                })
         }
     }, [acceptedFiles]);
-    
+
     return (
         <div className="container">
             <div {...getRootProps({ style })}>
                 <input {...getInputProps()} />
                 <p>{acceptedFiles[0] ? acceptedFiles[0].name : "Upload Resume"}</p>
             </div>
+            <pre>{parsedResume}</pre>
+            <Input parsedResume={parsedResume} />
         </div>
     );
 }
-
-
-
-
