@@ -78,7 +78,8 @@ export const Dropzone: React.FunctionComponent = () => {
                 <input {...getInputProps()} />
                 <p>{acceptedFiles[0] ? acceptedFiles[0].name : "Upload Resume"}</p>
             </div>
-            <Input parsedResume={parsedResume} />
+
+            {parsedResume ? <Input parsedResume={parsedResume} setParsedResume={setParsedResume} /> : null}
         </div>
     );
 }
