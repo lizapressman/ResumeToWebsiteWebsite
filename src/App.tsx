@@ -6,9 +6,9 @@ function App() {
   return (
     <div>
       <h1>Resume To Website Builder</h1>
-    <Dropzone />
+      <Dropzone />
     </div>
-    
+
   );
 }
 

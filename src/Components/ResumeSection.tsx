@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl'
 
 interface InputProps {
     sectionTitle: string;
@@ -14,13 +16,12 @@ const ResumeSection: React.FunctionComponent<InputProps> = ({ sectionTitle, valu
     }, [inputValue])
 
     return (
-        <>
-            <h2>{sectionTitle}</h2>
-            <textarea
-                value={inputValue}
-                onChange={(event) => setInputValue(event.target.value)}
-            />
-        </>
+        <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+                <InputGroup.Text>{sectionTitle}</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl as="textarea" aria-label="With textarea" value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+        </InputGroup>
     )
 }
 

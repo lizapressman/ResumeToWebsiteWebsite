@@ -80,6 +80,7 @@ export const Dropzone: React.FunctionComponent = () => {
             </div>
 
             {parsedResume ? <Input parsedResume={parsedResume} setParsedResume={setParsedResume} /> : null}
+            {/* <p>{JSON.stringify(parsedResume)}</p> */}
         </div>
     );
 }
